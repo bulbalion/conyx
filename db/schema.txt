@@ -1,0 +1,27 @@
+--#   ____ ___  _   ___   ____  __
+--#  / ___/ _ \| \ | \ \ / /\ \/ /
+--# | |  | | | |  \| |\ V /  \  /
+--# | |__| |_| | |\  | | |   /  \
+--#  \____\___/|_| \_| |_|  /_/\_\
+--#
+--# Console Nyx Client
+--#
+--# Popis databazovych struktur
+--#
+--# LAST
+
+CREATE TABLE last (forum_id integer);
+
+-- posledni navstivene kluby
+
+--# AUTH
+
+CREATE TABLE auth (auth_key text);
+
+-- autorizacni tabulka, uklada autorizacni klic
+
+--# NICK
+
+CREATE TABLE nick (nickname text);
+
+-- jmeno, se prihlasovacim jmenem

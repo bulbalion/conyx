@@ -1,0 +1,60 @@
+   ____ ___  _   ___   ____  __
+  / ___/ _ \| \ | \ \ / /\ \/ /
+ | |  | | | |  \| |\ V /  \  /
+ | |__| |_| | |\  | | |   /  \
+  \____\___/|_| \_| |_|  /_/\_\
+
+       Console Nyx Client
+
+v 0.1.0
+- tui - diakritika delala problemy na nekterych strojich - prozatim pouze ascii
+- conyx - pridano nacitani posledniho zvoleneho klubu pri startu
+  [ select * from last where rowid = (select max(rowid) from last); ]
+- tui - pridano nacitani posledniho zvoleneho klubu pri inicializaci
+- conyx - prikazovy prewrapper ted vraci cislo klubu
+- tui - doplnen prikaz (p)is, ktery zasle do zvoleneho klubu prispevek
+
+v 0.0.9
+- tui - doplnen vyber klubu - (k)lub
+- tui - cteni klubu zacina odscrolovano dospodu
+
+v 0.0.8
+- doplnen textovy uzivatelsky interface o prikazy
+tui> s - (s)ledovane nove
+tui> z - prehled (z)men v programu
+tui> c - (c)ti zobrazi prispavky (EXPERIMENTALNI)
+
+v 0.0.7
+- doplneny knihovny na curses
+- changelog je pristupny pod prikazem zmeny a zobrazuje se v ncurses okne
+|-> tui - prikaz zobrazi priklad, jak by mohlo vypadat menu (EXPERIMENTALNI)
+
+v 0.0.6
+- prikaz diskuze se prejmenovat na oblibene
+- v oblibenych se zobrazuji i pocty neprectenych prispevku
+- lze pouzit prikaz oblibene nove pro vypis 
+  oblibenych diskuzi s neprectenymi prispevky
+- prikaz:
+|-> oblibene nove
+  zobrazi diskuze, u kterych je neprecteny prispevek
+- v oblibenych se zobrazuje:
+  * id diskuze
+  * nazev diskuze
+  * pocet neprectenych prispevku
+  * pocet odpovedi
+- odpoved lze pomoci prikazu:
+|-> odpoved id_prispevku:text_odpovedi
+- u prispevku se zobrazuji hodnoceni (prikaz cti, posledni sloupec)
+- autentizacni klic se nyni uklada do databaze
+- pri kazdem spusteni se musi zadata uzivatelske jmeno, na ktereho
+  je vystavena platna autorizace
+- pri prvnim spusteni se zada nick a pote standardni cestou probehne autorizace
+- pridan skript reset.sh 
+  * zrusi autorizaci a vymaze historii klubu v conyxu
+
+v 0.0.5 
+- pridal jsem konektivitu na databazi
+- kazdy navstiveny klub se ulozi do tabulky last
+  pri zmene klubu
+- prikaz last potom vypise poslednich n navstivenych
+  klubu

@@ -1,0 +1,27 @@
+   ____ ___  _   ___   ____  __
+  / ___/ _ \| \ | \ \ / /\ \/ /
+ | |  | | | |  \| |\ V /  \  /
+ | |__| |_| | |\  | | |   /  \
+  \____\___/|_| \_| |_|  /_/\_\
+ 
+       Console Nyx Client
+
+
+Instalace ve virtulnim python prostredi
+
+[root]# yum -y install python-virtualenv
+|= mkdir -p ~/pyenv
+cd ~/pyenv
+|= virtualenv -p /usr/bin/python2.7 conyx
+|= source ~/pyenv/conyx/bin/activate
+(conyx) |= pip install -r $CONYX/reqs.txt
+
+Do ~/.bashrc umistit:
+export CONYX='<cesta k conyxu>'
+alias conyx='source ~/pyenv/conyx/bin/activate; cd $CONYX; ./conyx.sh'
+
+A pak spustime (po novem nacteni bashrc):
+. ~/.bashrc
+
+pomoci prikazu:
+|= conyx

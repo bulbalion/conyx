@@ -1,0 +1,5 @@
+Filtrovat seznam klubu podle klicoveho slova - DONE
+Dodelat pripojeni na SQL*Databazi - DONE
+Historie navstivenych klubu - DONE
+Vyhledavani ze vsech klubu, nejenom zalozek - NEEDED
+Odpovidat pomoci odkazu - NEEDED
