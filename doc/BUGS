@@ -1,0 +1,17 @@
+- Nepodarilo se zmenit klub, kdyz jsem se vratil z TUI do CMD. CMD zachova svuj
+  a neprebere jej od TUI.
+FEA - v TUI by melo jit vyhledavat
+- u prispevku v TUI by mel byt v zahlavi jmeno klu
+- a kdyz uz jsem u toho, tak by bylo fajn mit konecne to vyberove menu
+
+
+
+--- GoldED+/LNX 1.1.5-b20170303
+
+ Av> OK team, there's a new version to update to please... the HUB, Gary
+ Av> and Agency BBS are all on it - are you? Please update when able.
+
+Phoenix BBS is running v0.9.0-dev now also.
+
+- necentruji se v tui nazvy diskuzi, pokud maji ve svem nazvu diakritiku
+- v TUI Main Menu nescrolluje obrazovka, kdyz se prejde na dalsi od posledniho prvku

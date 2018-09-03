@@ -1,0 +1,17 @@
+if( InStr[x] == 'C' ) { COLOR.fore = COLOR_CYAN; COLOR.bold = true; }
+if( InStr[x] == 'Y' ) { COLOR.fore = COLOR_YELLOW; COLOR.bold = true; }
+if( InStr[x] == 'G' ) { COLOR.fore = COLOR_GREEN; COLOR.bold = true; }
+if( InStr[x] == 'R' ) { COLOR.fore = COLOR_RED; COLOR.bold = true; }
+if( InStr[x] == 'B' ) { COLOR.fore = COLOR_BLUE; COLOR.bold = true; }
+if( InStr[x] == 'W' ) { COLOR.fore = COLOR_WHITE; COLOR.bold = true; }
+if( InStr[x] == 'K' ) { COLOR.fore = COLOR_BLACK; COLOR.bold = true; }
+if( InStr[x] == 'P' ) { COLOR.fore = COLOR_MAGENTA; COLOR.bold = true; }
+if( InStr[x] == 'c' ) { COLOR.fore = COLOR_CYAN; COLOR.bold = false; }
+if( InStr[x] == 'y' ) { COLOR.fore = COLOR_YELLOW; COLOR.bold = false; }
+if( InStr[x] == 'g' ) { COLOR.fore = COLOR_GREEN; COLOR.bold = false; }
+if( InStr[x] == 'r' ) { COLOR.fore = COLOR_RED; COLOR.bold = false; }
+if( InStr[x] == 'b' ) { COLOR.fore = COLOR_BLUE; COLOR.bold = false; }
+if( InStr[x] == 'w' ) { COLOR.fore = COLOR_WHITE; COLOR.bold = false; }
+if( InStr[x] == 'k' ) { COLOR.fore = COLOR_BLACK; COLOR.bold = false; }
+if( InStr[x] == 'p' ) { COLOR.fore = COLOR_MAGENTA; COLOR.bold = false; }
+4
