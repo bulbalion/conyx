@@ -80,7 +80,6 @@ def readFile(filename):
 
 def ScrollableWindow(filename):
   encoding = locale.getpreferredencoding()
-  
   tuiScrollContent(filename,readFile(filename), encoding)
 
 def tuiFile(filename):

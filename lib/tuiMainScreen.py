@@ -1,3 +1,4 @@
+# encoding=utf-8
 #   ____ ___  _   ___   ____  __
 #  / ___/ _ \| \ | \ \ / /\ \/ /
 # | |  | | | |  \| |\ V /  \  /
@@ -6,9 +7,9 @@
 #
 # Console Nyx Client
 #
-# Conyx Database Library
+# Conyx Text User Interface Main Screen Library
 #
-# version 0.1.0
+# version 0.1.5
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -21,21 +22,38 @@
 # provided.
 #
 
-# -*- coding: utf-8 -*-
 
 import sys, os, traceback
+reload(sys)
+sys.setdefaultencoding('utf8')
+sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 import curses, locale
 from curses.textpad import Textbox, rectangle
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 from conyxDBQuery import conyxDBQuery
 from tuiBuffer import tuiBuffer 
 from tuiFile import tuiFile
 from nyxOp import *
 from conyxDBLast import conyxDBLast
+from tuiMainMenu import tuiMainMenu
+from conyxOps import *
 
 boxtext=""
 tui_klub_id=-1
 
+def cleanHtml(text):
+  cleanr = re.compile('<.*?>')
+  cleantext = re.sub(cleanr, '', text)
+  return cleantext
+
+def nactiNazevKlubu(p_klub_id):
+  p_klub_name="?"
+  cols,rows=conyxDBQuery('select jmeno from klub_cache where id_klub = "' + str(p_klub_id) + '"')
+  if len(rows)>0:
+    p_klub_name=rows[0][0].encode("utf-8")
+  else:
+    return ('?')
+  return(p_klub_name)
+ 
 def maketextbox(h,w,y,x,value="zvolklub",deco=None,textColorpair=0,decoColorpair=0):
   #curses.noecho()
   #curses.cbreak()
@@ -54,7 +72,9 @@ def maketextbox(h,w,y,x,value="zvolklub",deco=None,textColorpair=0,decoColorpair
   nw.attron(textColorpair)
 
 def stripDia(in_str):
-  return(in_str.encode('ascii','ignore'))
+  return(in_str)
+  # return(in_str.encode('ascii','ignore'))
+
 
 def draw_menu(stdscr):
   global tui_klub_id
@@ -97,35 +117,22 @@ def draw_menu(stdscr):
         tuiFile("CHANGELOG") 
       except Exception:
         print("Nemuzu zobrazit seznam zmen.")
-    elif k == 115: # S - sledovane
-      try:
-        disp=""
-        buf=nyx_list_disc('nove',0)
-        for ln in buf:
-          disp+=ln+'\n' 
-        tuiBuffer('Sledovane nove',disp,0) # ZACNI OD SHORA
-      except Exception:
-        traceback.print_exc(file=sys.stdout)
-        input("Zmackni Enter ...")
-        print("Nemuzu zobrazit seznam sledovanych.")
+    elif k == ord("n"): # N - neprectene kluby
+      tuiMainMenu(1)
+      stdscr.clear()      
+    elif k == ord("r"): # R - kluby s reakci
+      tuiMainMenu(2)
+      stdscr.clear()      
+    elif k == ord("s"): # S - sledovane
+      tuiMainMenu(0)
+      stdscr.clear()      
     elif k == 99: # C - cti
-      try:
-        disp=""
-        buf=nyx_show_disc_msgs(str(tui_klub_id),0) ### TODO FROM INPUT
-        for ln in buf:
-          disp+=ln+'\n' 
-        tuiBuffer('klub',disp,1) # ZACNI ODSPODA
-      except Exception:
-        traceback.print_exc(file=sys.stdout)
-        input("Zmackni Enter ...")
-        print("Nelze zobrazit seznam sledovanych.")
+      zobrazDiskuzi(str(tui_klub_id),stdscr)
     elif k == 112: # P - pis
       try:
         stdscr.refresh()
         curses.cbreak()
         stdscr.addstr(1,3,"Tvuj prispevek: [ ctrl+g nebo zaplneni okenka pro odeslani ]".encode("utf-8"))
-        #start_x_title = int((width // 2) - (len(title) // 2) - len(title) % 2)
-        # x=4;y=4;h=int(height//2);w=int(width-4)
         x=4;y=4;h=18;w=int(70)
         rectangle(stdscr,x-1,y-1,y+h,x+w)
         editwin = curses.newwin(h,w,x,y)
@@ -155,7 +162,7 @@ def draw_menu(stdscr):
         curses.cbreak()
         stdscr.addstr(1,3,"Vyber klub (cislo):".encode("utf-8"))
         x=4;y=4;h=1;w=12
-        rectangle(stdscr,x-1,y-1,y+h,x+w)
+        rectangle(stdscr,x-1,y-1,h+x+1,w+y+1)
         editwin = curses.newwin(h,w,x,y)
         stdscr.refresh()
         box=Textbox(editwin)
@@ -187,18 +194,21 @@ def draw_menu(stdscr):
     subtitle = "CONSOLE NYX CLIENT"[:width-1]
     #keystr = "Posledni klavesa: {}".format(k)[:width-1] + " KLUB: " + str(tui_klub_id)
     keystr = " KLUB: " + str(tui_klub_id)
-    #statusbarstr = "(q)uit | (k)lub (s)ledovane (c)ti | (z)meny | Pos: {}, {}".format(cursor_x, cursor_y)
-    statusbarstr = "(q)uit | (k)lub (s)ledovane (c)ti (p)is | (z)meny |"
-    credits = "GIOMIKY MMXVIII"
+    nazev_klubu = nactiNazevKlubu(tui_klub_id)[:width-1]
+    #statusbarstr = "(q)uit | (s)ledovane (k)lub (c)ti | (z)meny | Pos: {}, {}".format(cursor_x, cursor_y)
+    statusbarstr = "(q)uit | (s)ledovane (k)lub (c)ti (p)is (n)eprectene (r)eakci | (z)meny |"
+    credits = "MXVIII"
     if k == 0:
-      keystr = "Vitej zpet do klubu {}".format(str(tui_klub_id))
+      credits = "MMXVIII"
+      keystr = u"Vítej zpět do klubu {}".format(str(tui_klub_id))
 
     # Centering calculations
-    start_x_title = int((width // 2) - (len(title) // 2) - len(title) % 2)
-    start_x_subtitle = int((width // 2) - (len(subtitle) // 2) - len(subtitle) % 2)
-    start_x_keystr = int((width // 2) - (len(keystr) // 2) - len(keystr) % 2)
-    start_x_credits = int((width // 2) - (len(credits) // 2) - len(credits) % 2)
-    start_y = int((height // 2) - 4)
+    start_x_title=int((width//2)-(len(title)//2)-len(title)%2)
+    start_x_subtitle=int((width//2)-(len(subtitle)//2)-len(subtitle)%2)
+    start_x_keystr=int((width//2)-(len(keystr)//2)-len(keystr)%2)
+    start_x_credits=int((width//2)-(len(credits)//2)-len(credits)%2)
+    start_x_nazev_klubu=int((width//2)-(len(nazev_klubu)//2)-len(nazev_klubu)%2)
+    start_y=int((height//2)-4)
 
     # Rendering some text
     #whstr = "Width: {}, Height: {}".format(width, height)
@@ -222,11 +232,12 @@ def draw_menu(stdscr):
     stdscr.attroff(curses.A_BOLD)
 
     # Print rest of text
-    stdscr.addstr(start_y + 2, start_x_subtitle, subtitle)
+    stdscr.addstr(start_y+2,start_x_subtitle, subtitle)
     #stdscr.addstr(start_y + 3, (width // 2) - 2, '-' * 4)
-    stdscr.addstr(start_y + 4, start_x_keystr, keystr)
-    stdscr.addstr(start_y + 6, start_x_credits, credits)
-    stdscr.move(cursor_y, cursor_x)
+    stdscr.addstr(start_y+4,start_x_keystr, keystr)
+    stdscr.addstr(start_y+6,start_x_nazev_klubu, nazev_klubu)
+    stdscr.addstr(start_y+8,start_x_credits, credits)
+    stdscr.move(cursor_y,cursor_x)
 
     # Refresh the screen
     stdscr.refresh()
@@ -235,7 +246,8 @@ def draw_menu(stdscr):
     k = stdscr.getch()
 
 def tuiMainScreen():
-  encoding = locale.getpreferredencoding()
+  locale.setlocale(locale.LC_ALL,"")
+  encoding = "utf-8"
   global tui_klub_id
   cols, rows = conyxDBQuery('select * from last where rowid = (select max(rowid) from last)')
   tui_klub_id = rows[0][0]

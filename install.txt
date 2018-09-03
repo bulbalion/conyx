@@ -9,6 +9,12 @@
 
 Instalace ve virtulnim python prostredi
 
+Rozbal zip. Na adresar s rozbalenymi
+soubory odkaz pomoci systemove promenne
+CONYX:
+
+export CONYX='<cesta k conyxu>'
+
 [root]# yum -y install python-virtualenv
 |= mkdir -p ~/pyenv
 cd ~/pyenv
@@ -17,7 +23,6 @@ cd ~/pyenv
 (conyx) |= pip install -r $CONYX/reqs.txt
 
 Do ~/.bashrc umistit:
-export CONYX='<cesta k conyxu>'
 alias conyx='source ~/pyenv/conyx/bin/activate; cd $CONYX; ./conyx.sh'
 
 A pak spustime (po novem nacteni bashrc):

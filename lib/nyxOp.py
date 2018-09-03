@@ -8,7 +8,7 @@
 #
 # Conyx Database Library
 #
-# version 0.1.0
+# version 0.1.6
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -32,6 +32,8 @@ from colorama import Fore, Style
 from conyxDBQuery import conyxDBQuery
 from conyxDBAuth import conyxDBStoreAuth
 from conyxDBUpdNickname import conyxDBUpdNickname
+from conyxDBGenDML import conyxDBGenDML
+from conyxDBGenDMLVars import conyxDBGenDMLVars
 
 url='http://www.nyx.cz/api.php'
 
@@ -55,11 +57,19 @@ def nyx_auth(p_nickname):
     'auth_nick':get_auth_nickname(),
     'auth_token':get_auth_token(),
     'l':'help',
-    'l2':'conyx'
+    'l2':'test'
   })
-  resp = urllib.urlopen(url, params).read()
-  res=json.loads(resp)
-  #print(res)
+  try:
+    resp = urllib.urlopen(url, params).read()
+  except Exception:
+    print("Chyba pri pripojeni na server")
+    exit()
+  #print(resp)
+  try:
+    res=json.loads(resp)
+  except Exception:
+    print("Chyba pri zpracovani odpovedi serveru")
+    exit()
   if not res.has_key("system"):
     if res["code"]=="401" and res["error"]!='Not Authorized':
       print("Nejdrive zruste stavajici registraci")
@@ -74,9 +84,36 @@ def nyx_auth(p_nickname):
       conyxDBStoreAuth(res["auth_token"])
       #print("AUTH TOKEN: " + res["auth_token"])
   else:
-    print("Jsem pripojen...")
+    print("Pripojen na server ...")
     ret=0
   return(ret)
+
+def nyx_list_book_reply(p_filter,colo):
+  buf=[]
+  line=""
+  params = urllib.urlencode({
+    'auth_nick': get_auth_nickname(),
+    'auth_token': get_auth_token(),
+    'l' : 'bookmarks',
+    'l2' : 'new'
+  })
+  try:
+    resp = urllib.urlopen(url, params).read()
+  except Exception:
+    print("Chyba pri pripojeni na server")
+    exit()
+  try:
+    res=json.loads(resp)
+  except Exception:
+    print("Chyba pri zpracovani odpovedi server")
+    exit()
+  #print(res) # DEBUG THE RESPONSE
+  conyxDBGenDML('delete from klub_cache')
+  rx=0
+  for i in (res['data']['discussions']):
+    conyxDBGenDMLVars("insert into klub_cache values (?,?,?,?,?)",(rx,i['id_klub'],i['jmeno'],i['unread'],i['replies'],))
+    rx+=1
+  return(buf)
 
 def nyx_list_disc(p_filter,colo):
   buf=[]
@@ -87,27 +124,31 @@ def nyx_list_disc(p_filter,colo):
     'l' : 'bookmarks',
     'l2' : 'all'
   })
-  resp = urllib.urlopen(url, params).read()
-  res=json.loads(resp)
-  #print(res)
-  for i in (res['data']['discussions']):
-    if p_filter == "":
-      line=Fore.BLUE  + i['id_klub'] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + i['jmeno'] + Style.DIM + Fore.RED + '|' + Style.DIM + Fore.CYAN + i['unread'] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + i['replies'] + Style.DIM + Fore.RED + '|'+ Style.RESET_ALL
-      buf.append(line)
-    elif p_filter == "nove":
-      if int(i['unread']) > 0:
-        if colo==1:
-          line=Fore.BLUE  + i['id_klub'] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + i['jmeno'] + Style.DIM + Fore.RED + '|' + Style.DIM + Fore.CYAN + i['unread'] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + i['replies'] + Style.DIM + Fore.RED + '|'+ Style.RESET_ALL
-        else:
-          line=i['id_klub']+'|'+i['jmeno']+'|'+i['unread']+'|'+i['replies'] 
-        buf.append(line)
-    else:
-      if i['jmeno'].find(p_filter) != -1:
-        line=Fore.BLUE  + i['id_klub'] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + i['jmeno'] + Style.DIM + Fore.RED + '|' + Style.DIM + Fore.CYAN + i['unread'] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + i['replies'] + Style.DIM + Fore.RED + '|'+ Style.RESET_ALL
-        buf.append(line)
-  return(buf)
+  try:
+    resp = urllib.urlopen(url, params).read()
+    try:
+      res=json.loads(resp)
+    except Exception:
+      print("Chyba pri zpracovani odpovedi serveru")
+      exit()
+    # print(res) # DEBUG THE RESPONSE
+    conyxDBGenDML('delete from klub_cache')
+    rx=0
+    err=0
+    for i in (res['data']['discussions']):
+      if err==0:
+        try:      
+          conyxDBGenDMLVars("insert into klub_cache values (?,?,?,?,?)",(rx,i['id_klub'],i['jmeno'],i['unread'],i['replies'],))
+        except Exception:
+          print("Nemuzu vlozit zahlavi klubu do databaze.")
+          err=1
+      rx+=1
+  except Exception:
+    traceback.print_exc(file=sys.stdout)  
+    print("Nemuzu stahnout seznam klubu ze serveru.")
+  return(rx,buf)
 
-def nyx_show_disc_msgs(p_disc_key,colo):
+def nyx_show_disc_msgs(p_disc_key):
   buf=[]
   line=""
   params = urllib.urlencode({
@@ -118,18 +159,31 @@ def nyx_show_disc_msgs(p_disc_key,colo):
     'id' : p_disc_key,
     'direction' : 0
   })
-  resp = urllib.urlopen(url, params).read()
-  res=json.loads(resp)
-  #print(res)
-  for x in range(len(res["data"])-1,-1,-1):
-    cr = res["data"][x]
-    if colo==1:
-      line=cr["id_wu"] + Style.DIM + Fore.RED + "|" + Style.NORMAL + Fore.BLUE + cr["nick"] + Style.DIM + Fore.RED + '|' + Style.NORMAL + Fore.CYAN + cleanhtml(cr["content"]) + Style.DIM + Fore.RED + '|' + Fore.CYAN + cr["wu_rating"]
-      buf.append(line)
-    else:
-      line=cr["id_wu"]+"|"+cr["nick"]+'|'+cleanhtml(cr["content"])+'|'+cr["wu_rating"]
-      buf.append(line)
-  return(buf)
+  try:
+    resp = urllib.urlopen(url, params).read()
+  except Exception:
+    print("Chyba pri pripojeni na server")
+    exit()
+  try:
+    res=json.loads(resp)
+  except Exception:
+    print("Chyba pri zpracovani odpovedi serveru")
+    exit()
+  # print(res)
+  if not 'data' in res: 
+    print("Bud nemas pristup nebo se neco pokazilo.")
+    return (buf)
+  rx=0
+  err=0
+  conyxDBGenDML('delete from prispevek_cache')
+  for i in range(len(res["data"])-1,-1,-1):
+    if err==0:
+      cr = res["data"][i]
+      try:
+        conyxDBGenDMLVars("insert into prispevek_cache values (?,?,?,?,?)",(rx,cr['id_wu'],cr['nick'],cr['content'],cr['wu_rating'],))
+      except Exception:
+        err=1
+  return(rx,buf)
 
 def nyx_send_message(p_disc_key, p_message):
   params = urllib.urlencode({
@@ -156,7 +210,11 @@ def nyx_reply_message(p_disc_key,p_message,p_msg_id,p_usr_id):
     'message' : p_message
   })
   resp = urllib.urlopen(url, params).read()
-  res=json.loads(resp)
+  try:
+    res=json.loads(resp)
+  except Exception:
+    print("Chyba pri zpracovani odpovedi serveru")
+    exit()
   if (res["result"]=="ok"):
     print("prispevek zaslan")
 

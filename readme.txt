@@ -29,18 +29,36 @@ Pote, co se poprvi klient spusti, tak se musi standardni cestou autorizovat.
 
 # PRIKAZOVA RADKA
 
-Prompt by mel vypadat takto:
-
-[ ./conyx.sh # (pokud je spravne nastaven alias z popisu instalace, tak staci jenom conyx)
-Jsem pripojen...
-[ KLUB: -1 ]
-|->
-
 Conyx je na prikladech popsan takto (prikazy jsou oznaceny |->)
 
-|-> diskuze ZX
-5184|ZX Spectrum - gumak a plusko, nostalgie, emulatory, gameseni :o))))
-pouzit filter diskuzi ZX
+$ conyx
+
+Nejdrive stahneme zahlavi klubu pro dalsi praci
+
+|-> sk
+[ KLUB: 532 ]
+Stazeno 229 zahlavi klubu.
+
+A potom si z cache zobrazime neprectene kluby
+
+|-> np
+[ KLUB: 532 ]
+0|10425|3. světová válka aneb kam náš svět směřuje?  Status: SPACE FORCE|5|0
+1|20020|3D tiskárny|1|0
+10|18792|Android development|11|0
+...
+203|17068|tržiště / počítače a elektro|3|0
+208|17123|tržiště / práce a služby - NABÍDKA (nabízím práci, hledám pracanty)|1|0
+216|17877|Věci Veřejné - StB sledovalo hlavně to, jestli někdo nepodepisuje nevýhodné kontakty|61|0
+|->
+
+Anebo kluby s reakcemi pro tebe
+
+|-> r
+[ KLUB: 532 ]
+532|Brno - Šalingrad ... xchat - Tady jde o šedesátosm okupantů.|1|1
+
+Zobrazi se pouze kluby, ve kterych mas reakci.
 
 |-> klub 5184
 Zvolen klub: 5184
