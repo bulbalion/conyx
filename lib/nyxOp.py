@@ -26,7 +26,6 @@ sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 import urllib
 import json
 import re
-import curses
 import datetime
 from colorama import Fore, Style
 from conyxDBQuery import conyxDBQuery
