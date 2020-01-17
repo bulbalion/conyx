@@ -8,7 +8,7 @@
 #
 # Conyx Text User Interface Main Menu Library
 #
-# version 0.1.8
+# version 0.1.7
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -41,10 +41,10 @@ width=0
 
 #def nactiSeznamKlubu():
 
+
 # BUGS
 # ukazuje i mimo posledni prvek
 def tuiMainMenu(typ_klubu=0):
-  nr,buf=nyx_list_disc("",0) # stahni zahlavi klubu
   strings=[]
   screen = curses.initscr()
   curses.noecho()
@@ -60,11 +60,26 @@ def tuiMainMenu(typ_klubu=0):
   encoding = locale.getpreferredencoding()
   locale.setlocale(locale.LC_ALL, '')
   x=""
-  pages=0
-  row_num=0
   try:
+    #if typ_klubu==1:
+    #  cols,rows=conyxDBQuery("select id_klub, jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' order by jmeno asc")
+    #elif typ_klubu==2:
+    #  cols,rows=conyxDBQuery("select id_klub, jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' and replies != '0' order by jmeno asc")
+    #else:
+    #  cols,rows=conyxDBQuery("select id_klub, jmeno||'|'||unread||'|'||replies txt from klub_cache order by jmeno asc")
+    #strings=[]
+    #refs=[]
+    #ret=0
+    #for i in rows:
+    #  strings.append(cleanHtml(i[1].replace('\n','')))
+    #  refs.append(i[0])
+    #row_num=len(strings)
 
-    if 1==1: # last_pos!=0 and row_num>0:
+    if last_pos!=0 and row_num>0:
+      #tmp=[] 
+      #for i in strings:
+      #  tmp.append(i[:width-10])
+      #strings=tmp
       highlightText=curses.color_pair(1)
       normalText=curses.A_NORMAL
       max_row=height-2
@@ -72,6 +87,15 @@ def tuiMainMenu(typ_klubu=0):
       pages=int(ceil(row_num/max_row))
       position=last_pos 
       page=last_page
+      for i in range(1+(max_row*(page-1)),max_row+1+(max_row*(page-1))):
+        if (i+(max_row*(page-1))==position+(max_row*(page-1))):
+          box.addstr(i-(max_row*(page-1)),2,actual_char+" "+cleanHtml(strings[i-1]), highlightText)
+        else:
+          box.addstr(i-(max_row*(page-1)),2,"  "+cleanHtml(strings[i-1]),normalText)
+        if i==row_num:
+          break;
+      screen.refresh()
+      box.refresh()
         
       while x != ord('q'): # dokud neni stisknuta klavesa 'q'
 
@@ -79,12 +103,13 @@ def tuiMainMenu(typ_klubu=0):
 
         # POKUS NACIST KLUBY PRED KAZDYM NAVRATEM Z KLUBU
         if typ_klubu==1:
-          cols,rows=conyxDBQuery("select id_klub, id_klub||'|'||jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' order by jmeno asc")
-          #box.addstr(0,0,"Nacten seznam neprectenych klubu")
+          cols,rows=conyxDBQuery("select id_klub, jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' order by jmeno asc")
+          box.addstr(0,0,"Nacteny seznam neprectenych klubu")
+          #screen.getch()
         elif typ_klubu==2:
-          cols,rows=conyxDBQuery("select id_klub, id_klub||'|'||jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' and replies != '0' order by jmeno asc")
+          cols,rows=conyxDBQuery("select id_klub, jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' and replies != '0' order by jmeno asc")
         else:
-          cols,rows=conyxDBQuery("select id_klub, id_klub||'|'||jmeno||'|'||unread||'|'||replies txt from klub_cache order by jmeno asc")
+          cols,rows=conyxDBQuery("select id_klub, jmeno||'|'||unread||'|'||replies txt from klub_cache order by jmeno asc")
         strings=[]
         refs=[]
         ret=0
@@ -93,13 +118,13 @@ def tuiMainMenu(typ_klubu=0):
           strings.append(cleanHtml(i[1].replace('\n','')))
           refs.append(i[0])
         row_num=len(strings)
-        #if last_pos!=0 and row_num>0:
-        tmp=[] 
-        for i in strings:
-          tmp.append(i[:width-10])
-        strings=tmp
-        # highlightText=curses.color_pair(1)
-        pages=int(ceil(row_num/max_row))
+        if last_pos!=0 and row_num>0:
+          tmp=[] 
+          for i in strings:
+            tmp.append(i[:width-10])
+          strings=tmp
+          # highlightText=curses.color_pair(1)
+          pages=int(ceil(row_num/max_row))
         
 
         box.addstr(height-1,0,"pos " + str(position) + " page " + str(page) + " mr " + str(max_row) + " row_num " + str(row_num))
@@ -108,8 +133,6 @@ def tuiMainMenu(typ_klubu=0):
           if row_num == 0:
             if typ_klubu==1:
               box.addstr(1,1,"Zadny dalsi neprecteny klub.",highlightText)
-            elif typ_klubu==2:
-              box.addstr(1,1,"Zadny dalsi klub s reakci.",highlightText)
             else:
               box.addstr(1,1,"Zadna data.",highlightText)
           else:
@@ -168,7 +191,6 @@ def tuiMainMenu(typ_klubu=0):
     curses.endwin()
     traceback.print_exc(file=sys.stdout)
     print("Problem s textovym uzivatelskym rozhranim")
-
-# DEBUG
+    #exit()
 #
 #tuiMainMenu()

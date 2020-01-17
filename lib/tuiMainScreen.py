@@ -9,7 +9,7 @@
 #
 # Conyx Text User Interface Main Screen Library
 #
-# version 0.1.5
+# version 0.1.7
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even

@@ -5,6 +5,14 @@
   \____\___/|_| \_| |_|  /_/\_\
 
        Console Nyx Client
+v 0.1.8
+- tui - sledovane a neprectene zobrazuji i cislo klubu
+
+v 0.1.7
+- winyx - lze spustit pod Windows bez curses (tui)
+- tui - (n)eprectene - pokud prectes klub, tak se odebere ze seznamu neprectenych
+- tui - prepsana tuiMainScreen - aktivity pred hlavnim cyklem zarazeny do nej
+- tui - tuiMainScreen - zarazeno stahnuti seznamu klubu pri vstupu do menu
 
 v 0.1.6
 - tui - zjednoduseni funkce tuiBuffer

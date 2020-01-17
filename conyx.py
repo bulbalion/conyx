@@ -8,7 +8,7 @@
 #
 # Conyx Command Line
 #
-# version 0.1.6
+# version 0.1.8
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
