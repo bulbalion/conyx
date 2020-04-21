@@ -1,3 +1,0 @@
-# v0.1.9b
-find . -exec sed -i 's/from urllib.parse/from urllib.parse/g' {} \;
-find . -exec sed -i 's/from urllib.request/from urllib.request/g' {} \;
