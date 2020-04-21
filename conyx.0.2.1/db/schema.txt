@@ -1,0 +1,45 @@
+--#   ____ ___  _   ___   ____  __
+--#  / ___/ _ \| \ | \ \ / /\ \/ /
+--# | |  | | | |  \| |\ V /  \  /
+--# | |__| |_| | |\  | | |   /  \
+--#  \____\___/|_| \_| |_|  /_/\_\
+--#
+--# Console Nyx Client
+--#
+--# Popis databazovych struktur
+--#
+--# LAST
+
+CREATE TABLE last (forum_id integer);
+
+-- posledni navstivene kluby
+
+--# AUTH
+
+CREATE TABLE auth (auth_key text);
+
+-- autorizacni tabulka, uklada autorizacni klic
+
+--# NICK
+
+CREATE TABLE nick (nickname text);
+
+-- jmeno, se prihlasovacim jmenem
+
+--# KLUB CACHE
+
+-- tabulka s docasnou pameti pro zahlavi klubu
+
+CREATE TABLE klub_cache (id number, disc_key number, desc text);
+
+
+-- # PRISPEVKY CACHE
+
+-- tabulka s docasnou pameti pro prispevky
+
+CREATE TABLE prispevky_cache (id number, id_prispevek number, prisp_from text, prisp_text text);
+
+-- # MAIL CACHE 
+
+CREATE TABLE mail (id number, content text, direction text, other_nick text, time text);
+

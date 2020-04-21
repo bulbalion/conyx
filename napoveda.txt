@@ -1,0 +1,27 @@
+    ____ ___  _   ___   ____  __
+  / ___/ _ \| \ | \ \ / /\ \/ /
+ | |  | | | |  \| |\ V /  \  /
+ | |__| |_| | |\  | | |   /  \
+  \____\___/|_| \_| |_|  /_/\_\
+
+       Console Nyx Client
+
+Klavesy
+ 
+(q)uit        - ukonci program                    
+(s)ledovane   - zobraz sledovane kluby
+(n)eprectene  - zobraz neprectene kluby
+(r)eakci      - zobraz kluby s reakci
+(k)lub        - vyber klub podle cisla
+(c)ti         - cti nejnovejsi prispevky v klubu
+(p)is         - napis prispevek do klubu
+(z)meny       - zobraz seznam zmen programu
+F(1)          - zobraz napovedu
+(h)istorie    - historie navstivenych diskuzi
+(w)           - hledej prispevky dle klicoveho slova na celem Nyxu
+nov(e)jsi     - nalistuj stranu smerem k novejsim prispevku diskuzniho klubu
+d(o) historie - nalistuj stranu do historie diskuzniho klubu
+(i)nformace   - informace o klubu
+(v)vyhledej   - vyhledej v aktualni diskuzi klicove slovo
+uzivate(l)    - vyhledej prispevek od uzivatele v aktualni diskuzi
+

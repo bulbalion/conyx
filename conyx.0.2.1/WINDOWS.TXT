@@ -1,0 +1,44 @@
+   ____ ___  _   ___   ____  __
+  / ___/ _ \| \ | \ \ / /\ \/ /
+ | |  | | | |  \| |\ V /  \  /
+ | |__| |_| | |\  | | |   /  \
+  \____\___/|_| \_| |_|  /_/\_\
+ 
+       Console Nyx Client
+
+Vitejte v CONYXu na Windows
+
+Prerekvizity:
+
+1) Python 2.7
+2) pip
+
+Tzn.:
+
+Stahnout z python.org verzi
+2.7 a predpokladam, ze bude
+nainstalovana do c:\python
+
+V adresari, kde je rozbalen
+conyx:
+
+
+cmd> pip install -r reqs.txt
+
+Nastav systemovou promennou
+CONYX na adresar s instalaci
+
+Napriklad:
+
+cmd> set CONYX=%cd%
+
+Pote zadat:
+
+cmd> python winyx.py
+
+Autorizovat dle standardnich
+postupu
+
+A pro napovedu cit readme.txt
+nebo zadat help pro seznam
+prikazu.

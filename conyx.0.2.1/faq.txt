@@ -1,0 +1,23 @@
+   ____ ___  _   ___   ____  __
+  / ___/ _ \| \ | \ \ / /\ \/ /
+ | |  | | | |  \| |\ V /  \  /
+ | |__| |_| | |\  | | |   /  \
+  \____\___/|_| \_| |_|  /_/\_\
+
+       Console Nyx Client
+
+
+## Casto kladene otazky
+
+1) Jak vymazu vsechny svoje udaje z CONYXu?
+
+- pouzij 
+cd $CONYX
+./reset.sh
+
+2) proc neni v textovem uzivatelskem rozhrani (TUI) 
+  diakritika
+
+- ne vsechny distribuce podporuji spravne Curses
+- textove uzivatelske rozhrani je EXPERIMENTALNI
+
