@@ -1,3 +1,3 @@
 #!/bin/bash
 export CONYX=`pwd`
-python -m cProfile tui.py
+python3 -m cProfile -s cumtime -o profile_tui.txt tui.py

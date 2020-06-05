@@ -1,14 +1,17 @@
---#   ____ ___  _   ___   ____  __
---#  / ___/ _ \| \ | \ \ / /\ \/ /
---# | |  | | | |  \| |\ V /  \  /
---# | |__| |_| | |\  | | |   /  \
---#  \____\___/|_| \_| |_|  /_/\_\
---#
---# Console Nyx Client
---#
---# Popis databazovych struktur
---#
---# LAST
+--   _____   _______ ____   ____     ____
+--  |  __/  |   _   |   / __\   |  __\   |  ___
+--  |  | ___|  | |  |  | |  |   | |  |   | |  /
+-- <_  | |  |  | |  :   \|  |\   \|  :\   \|  \_
+--  |  |_|  :  |_|  |       :__\__   |/        _>
+--  :       |       |       |  :  |  |    _/:  |
+--   \_____/ \_____/|__|\___|________|___|  |___\
+-- 
+--    Console Nyx Client
+-- 
+-- Popis databazovych struktur
+-- 
+-- LAST
+--
 
 CREATE TABLE last (forum_id integer);
 
@@ -43,3 +46,5 @@ CREATE TABLE prispevky_cache (id number, id_prispevek number, prisp_from text, p
 
 CREATE TABLE mail (id number, content text, direction text, other_nick text, time text);
 
+-- # CONFIGURATION TABLE
+create table config (key text, description text, value text);

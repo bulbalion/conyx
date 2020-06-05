@@ -1,3 +1,3 @@
 #!/bin/bash
 export CONYX=`pwd`
-python -m pdb tui.py 
+python3 -m pdb tui.py 

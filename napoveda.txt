@@ -1,8 +1,11 @@
-    ____ ___  _   ___   ____  __
-  / ___/ _ \| \ | \ \ / /\ \/ /
- | |  | | | |  \| |\ V /  \  /
- | |__| |_| | |\  | | |   /  \
-  \____\___/|_| \_| |_|  /_/\_\
+
+   _____   _______ ____   ____     ____
+  |  __/  |   _   |   / __\   |  __\   |  ___
+  |  | ___|  | |  |  | |  |   | |  |   | |  /
+ <_  | |  |  | |  :   \|  |\   \|  :\   \|  \_
+  |  |_|  :  |_|  |       :__\__   |/        _>
+  :       |       |       |  :  |  |    _/:  |
+   \_____/ \_____/|__|\___|________|___|  |___\
 
        Console Nyx Client
 
@@ -13,15 +16,18 @@ Klavesy
 (n)eprectene  - zobraz neprectene kluby
 (r)eakci      - zobraz kluby s reakci
 (k)lub        - vyber klub podle cisla
-(c)ti         - cti nejnovejsi prispevky v klubu
+(c)ti         - cti prispevky v klubu
 (p)is         - napis prispevek do klubu
 (z)meny       - zobraz seznam zmen programu
 F(1)          - zobraz napovedu
 (h)istorie    - historie navstivenych diskuzi
-(w)           - hledej prispevky dle klicoveho slova na celem Nyxu
-nov(e)jsi     - nalistuj stranu smerem k novejsim prispevku diskuzniho klubu
-d(o) historie - nalistuj stranu do historie diskuzniho klubu
+(w)           - hledej prispevky vsude
+nov(e)jsi     - novejsi prispevky v klubu
+d(o) historie - starsi prispevky v klubu
 (i)nformace   - informace o klubu
-(v)vyhledej   - vyhledej v aktualni diskuzi klicove slovo
-uzivate(l)    - vyhledej prispevek od uzivatele v aktualni diskuzi
-
+(v)vyhledej   - hledej v aktualni diskuzi
+uzivate(l)    - hledej prispevek od uzivatele
+(d)opisy      - vstup do postovni schranky
+ozna(m)eni    - oznameni
+(f)ile        - posli soubor
+k(0)nfigurace - nastaveni programu

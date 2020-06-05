@@ -1,0 +1,173 @@
+Klavesy
+ 
+FUNKCE1001: 
+(q)uit        - ukonci program                    
+
+TEST1001: 
+1) spust CONYX
+2) ukonci CONYX
+
+FUNKCE1002:
+(s)ledovane   - zobraz sledovane kluby
+
+TEST1002:
+1) spust CONYX
+2) zobraz seznam sledovanych klubu
+3) ukonci CONYX
+
+FUNKCE1003:
+(n)eprectene  - zobraz neprectene kluby
+
+TEST1003:
+1) spust CONYX
+2) zobraz seznam neprectenych klubu
+3) ukonci CONYX
+
+FUNKCE1004:
+(r)eakci      - zobraz kluby s reakci
+
+TEST1004:
+1) spust CONYX
+2) zobraz seznam klubu s reakci
+3) ukonci CONYX
+
+FUNKCE1005:
+(k)lub        - vyber klub podle cisla
+
+TEST1005:
+1) spust CONYX
+2) stiskni k
+3) zadej cislo klubu 23330
+4) stiskni CTRL+G
+5) ukonci CONYX
+
+FUNKCE1006:
+(c)ti         - cti nejnovejsi prispevky v klubu
+
+TEST1006:
+1) spust CONYX
+2) stiskni c
+3) stiskni q
+4) ukonci CONYX
+
+FUNKCE1007:
+(p)is         - napis prispevek do klubu
+
+TEST1007:
+1) spust CONYX
+2) stiskni p
+3) stiskni ctrl+x
+4) ukonci CONYX
+
+FUNKCE1008:
+(z)meny       - zobraz seznam zmen programu
+
+TEST1008:
+1) spust CONYX
+2) stiskni z 
+3) ukonci CONYX
+
+FUNKCE1009:
+F(1)          - zobraz napovedu
+
+TEST1009:
+1) spust CONYX
+2) stiskni 1 
+3) ukonci CONYX
+
+FUNKCE1010:
+(h)istorie    - historie navstivenych diskuzi
+
+TEST1010:
+1) spust CONYX
+2) stiskni h 
+3) stiskni q 
+4) ukonci CONYX
+
+FUNKCE1011:
+(w)           - hledej prispevky dle klicoveho slova na celem Nyxu
+
+TEST1011:
+1) spust CONYX
+2) stiskni w 
+3) stiskni ctrl+x
+4) ukonci CONYX
+
+FUNKCE1012:
+nov(e)jsi     - nalistuj stranu smerem k novejsim prispevku diskuzniho klubu
+
+TEST1012:
+1) spust CONYX
+2) stiskni e 
+3) ukonci CONYX
+
+FUNKCE1013:
+d(o) historie - nalistuj stranu do historie diskuzniho klubu
+
+TEST1013:
+1) spust CONYX
+2) stiskni o 
+3) ukonci CONYX
+
+FUNKCE1014:
+(i)nformace   - informace o klubu
+
+TEST1014:
+1) spust CONYX
+2) stiskni i 
+3) ukonci CONYX
+
+FUNKCE1015:
+(v)vyhledej   - vyhledej v aktualni diskuzi klicove slovo
+
+TEST1015:
+1) spust CONYX
+2) stiskni i 
+3) stiskni ctrl+x
+4) ukonci CONYX
+
+FUNKCE1016:
+uzivate(l)    - vyhledej prispevek od uzivatele v aktualni diskuzi
+
+TEST1015:
+1) spust CONYX
+2) stiskni l 
+3) stiskni ctrl+x
+4) ukonci CONYX
+
+FUNKCE1017:
+(d)opisy      - vstup do postovni schranky
+
+TEST1017:
+1) spust CONYX
+2) stiskni d 
+3) stiskni ctrl+x
+4) ukonci CONYX
+
+#FUNKCE1018: # 20200530 NETEST
+#ozna(m)eni    - oznameni o reakcich na prispevky
+#
+#TEST1018:
+#1) spust CONYX
+#2) stiskni m
+#3) stiskni q
+#4) ukonci CONYX
+
+FUNKCE1019:
+(f)ile        - posli soubor
+
+TEST1019:
+1) spust CONYX
+2) stiskni f 
+3) stiskni q
+4) ukonci CONYX
+
+FUNKCE1020:
+k(0)nfigurace - nastaveni programu
+
+TEST1020:
+1) spust CONYX
+2) stiskni 0 
+3) stiskni q
+4) ukonci CONYX
+

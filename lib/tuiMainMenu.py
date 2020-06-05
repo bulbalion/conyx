@@ -9,7 +9,7 @@
 #
 # Conyx Text User Interface Main Menu Library
 #
-# version 0.2.1
+# version 0.2.3
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -25,7 +25,8 @@
 import sys, os, traceback
 #reload(sys)
 #sys.setdefaultencoding('utf8')
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 from math import *
 import curses
 from conyxDBQuery import conyxDBQuery
@@ -34,12 +35,22 @@ import sys
 import re
 from conyxOps import *
 from tuiBuffer import * 
+import unicodedata # HERE # IS IT DEFAULT
+from ugetch import ugetch
+from conyxDBLast import conyxDBLast
+from conyxDBSetForumLast import conyxDBSetForumLast
+from nyxOp import *
+from sutf8 import sutf8
 
 actual_char='>'
 height=0
 width=0
 
 #def nactiSeznamKlubu():
+
+def strip_accents(s):
+  return ''.join(c for c in unicodedata.normalize('NFD', s)
+    if unicodedata.category(c) != 'Mn')
 
 # BUGS
 # ukazuje i mimo posledni prvek
@@ -60,26 +71,24 @@ def tuiMainMenu(typ_klubu=0):
   last_page=1
   encoding = locale.getpreferredencoding()
   locale.setlocale(locale.LC_ALL, '')
+  code = locale.getpreferredencoding()
   x=""
   pages=0
   page=0
   row_num=0
+  smode=0
   try:
-
     if 1==1: # last_pos!=0 and row_num>0:
       highlightText=curses.color_pair(1)
       normalText=curses.A_NORMAL
       max_row=height-2
-      box=curses.newwin(height+1,width+1,0,0)
+      box=curses.newwin(height,width,0,0)
       pages=int(ceil(row_num/max_row))
       position=last_pos 
       page=last_page
-        
-      while x != ord('q'): # dokud neni stisknuta klavesa 'q'
-
-        box.erase()
-
-        # POKUS NACIST KLUBY PRED KAZDYM NAVRATEM Z KLUBU
+      search_substr=""  
+      # POKUS NACIST KLUBY PRED KAZDYM NAVRATEM Z KLUBU
+      while x != ord('q'): # neni stisknuta klavesa 'q'
         if typ_klubu==1:
           cols,rows=conyxDBQuery("select id_klub, id_klub||'|'||jmeno||'|'||unread||'|'||replies txt from klub_cache where unread != '0' order by jmeno asc")
           #box.addstr(0,0,"Nacten seznam neprectenych klubu")
@@ -91,6 +100,10 @@ def tuiMainMenu(typ_klubu=0):
           cols,rows=nyx_bookmarks_history()
         else:
           cols,rows=conyxDBQuery("select id_klub, id_klub||'|'||jmeno||'|'||unread||'|'||replies txt from klub_cache order by jmeno asc")
+ 
+
+        box.erase()
+
         strings=[]
         refs=[]
         ret=0
@@ -99,92 +112,125 @@ def tuiMainMenu(typ_klubu=0):
           strings.append(cleanHtml(i[1].replace('\n',' ')))
           refs.append(i[0])
         row_num=len(strings)
-        #if last_pos!=0 and row_num>0:
-        tmp=[] 
-        for i in strings:
-          tmp.append(i[:width-10])
+        tmp=[]
+        refs_tmp=[]
+        try:
+          if (len(search_substr)>0):
+            for i in strings:
+              if (search_substr.upper() in strip_accents(i).upper()):
+                tmp.append(i[:width-3])
+          else:
+            for i in strings:
+              tmp.append(i[:width-3])
+        except Exception as e:
+          #curses.endwin()
+          traceback.print_exc(file=sys.stdout)
+          print("Problem s textovym uzivatelskym rozhranim")
+          print("Na strance: " + str(page))
+          #height,width=screen.getmaxyx()
+	   
+        row_num=len(tmp)
         strings=tmp
         # highlightText=curses.color_pair(1)
         pages=int(ceil(row_num/max_row))
-        
 
-        box.addstr(height-1,0,"pos " + str(position) + " page " + str(page) + " mr " + str(max_row) + " row_num " + str(row_num))
+        footer="pos " + str(position) + " page " + str(page) + " mr " + str(max_row) + " row_num " + str(row_num) + " | -=[ f - vyhledej, j,k,l,h - pohyb, q - zpet, p - pis ]=-"
+        if len(footer)>=width-1:
+          footer="-=[ f hledej, j,k,l,h pohyb, p pis, q zpet ]=-"
+        box.addstr(height-1,0,footer)
 
         for i in range(1+(max_row*(page-1)),max_row+1+(max_row*(page-1))):
           if row_num == 0:
             if typ_klubu==1:
-              box.addstr(1,1,"Zadny dalsi neprecteny klub.",highlightText)
+              box.addstr(1,0,"Zadny dalsi neprecteny klub.",highlightText)
             elif typ_klubu==2:
-              box.addstr(1,1,"Zadny dalsi klub s reakci.",highlightText)
+              box.addstr(1,0,"Zadny dalsi klub s reakci.",highlightText)
             else:
-              box.addstr(1,1,"Zadna data.",highlightText)
+              box.addstr(1,0,"Zadna data.",highlightText)
           else:
             if (i+(max_row*(page-1))==position+(max_row*(page-1))):
-              box.addstr(i-(max_row*(page-1)),2,actual_char+" "+cleanHtml(sutf8(strings[i-1])), highlightText)
+              box.addstr(i-(max_row*(page-1)),0,actual_char+" "+cleanHtml(sutf8(strings[i-1])), highlightText)
             else:
-              box.addstr(i-(max_row*(page-1)),2,"  "+cleanHtml(sutf8(strings[i-1])),normalText)
+              box.addstr(i-(max_row*(page-1)),0,"  "+cleanHtml(sutf8(strings[i-1])),normalText)
           if i==row_num:
             break;
 
+        search_str="Hledat: "+str(search_substr) 
+        box.addstr(0,2,search_str) # y,x
         screen.refresh()
         box.refresh()
-        x = screen.getch()
+        x = ugetch(screen)
  
         ret=0
-        if ( x==curses.KEY_DOWN or x==106 ) and position < row_num: # j - down
-          if position<max_row+(max_row*(page-1)):
-            position=position+1
-          else:
-            if page<=pages:
+        try:
+          if x in (curses.KEY_DOWN,ord('j')) and smode==0 and position < row_num: # j - down
+            if position<max_row+(max_row*(page-1)):
+              position=position+1
+            else:
+              if page<=pages:
+                page=page+1
+                position=1+(max_row*(page-1))
+          elif x in (curses.KEY_UP,ord('k')) and smode==0 and position > 1: # k - up
+            if position>1+(max_row*(page-1)):
+              position=position-1
+            else:
+              page=page-1
+              position=max_row+(max_row*(page-1))
+          elif x in (curses.KEY_LEFT,ord('h'),ord('u')) and smode==0: # h - left
+            if page > 1:
+              page=page-1
+              position=1+(max_row*(page-1))
+          elif x in (curses.KEY_RIGHT,ord('l'),ord('n')) and smode==0: # l - right
+            if page<pages: 
               page=page+1
               position=1+(max_row*(page-1))
-        if ( x == curses.KEY_UP or x==107 ) and position > 1: # k - up
-          if position>1+(max_row*(page-1)):
-            position=position-1
+          elif x == ord("f"):
+            smode=1 # TURN ON SEARCH MODE
+          elif x in (curses.KEY_BACKSPACE, 263, 127) and smode==1: # backspace
+            if (len(search_substr)>0):
+              search_substr=search_substr[:-1]
+          elif x == ord("\n"):
+            if (len(strings)>0 and row_num != 0):
+              screen.erase()
+              strings_split = strings[position-1].split("|")
+              try:
+                ret=int(strings_split[0])
+              except Exception as e:
+                ret=1
           else:
-            page=page-1
-            position=max_row+(max_row*(page-1))
-        if x == curses.KEY_LEFT or x == 104: # h - left
-          if page > 1:
-            page=page-1
-            position=1+(max_row*(page-1))
-        if x == curses.KEY_RIGHT or x == 108: # l - right
-          if page<=pages: 
-            page=page+1
-            position=1+(max_row*(page-1))
-        if x == ord( "\n" ) and row_num != 0:
-          screen.erase()
-          ret=refs[position-1] 
-        
+            if (smode==1):
+              try:
+                search_substr+=chr(x)
+              except Exception as e:
+                traceback.print_exc(file=sys.stdout)
+                print("Problem s textovym uzivatelskym rozhranim")
+                print("Stisknuta klavesa " + str(ord(x)))
+                #height,width=screen.getmaxyx()
+                curses.endwin()
+                #screen.getch()
+                ugetch(screen)
+        except Exception as e:
+          traceback.print_exc(file=sys.stdout)
+          print("Problem s textovym uzivatelskym rozhranim")
+          print("Stisknuta klavesa " + str(ord(x)))
         if ret!=0:
-          buf=nyx_show_disc_msgs(str(ret))
-          cols, rows = conyxDBQuery('select prisp_from || "|" || prisp_text || "|" ||  prisp_hodnoceni wu_rating from prispevek_cache')
-          buffer=[]
-          for i in rows:
-            buffer.append(i[0])
-          #if len(rows)>0:
-          #  klub_name=getKlubNameFromID(ret)[:width-10]
-          #  tuiBuffer(klub_name,buffer)
-          #conyxDBGenDML('update klub_cache set unread = "0" where id_klub="'+str(ret)+'"')
-          #if (ret):
           tui_klub_id = ret
           conyxDBLast(tui_klub_id)
-          #else:
-          #  tui_klub_id = orig_tui_klub_id
-          #screen.addstr(0,0,"Vybran klub: " + tui_klub_id) # DEBUG
-          #screen.getch()
-          return(tui_klub_id)
+          conyxDBSetForumLast(tui_klub_id)
+          zobrazDiskuzi(str(tui_klub_id),screen,1)
+          screen.clear()      
+          #return(tui_klub_id)
     else:
       screen.addstr(0,0,"Nemas zadne neprectene kluby.")
-      screen.getch()
+      #screen.getch()
+      ugetch(screen)
     curses.endwin()
   except Exception:
     curses.endwin()
     traceback.print_exc(file=sys.stdout)
     print("Problem s textovym uzivatelskym rozhranim")
     print("Na strance: " + str(page))
-    #input("Stiskni klavesu...")
-    #time.sleep(5)
+    input("Stiskni klavesu...")
 
 # DEBUG
 #tuiMainMenu()

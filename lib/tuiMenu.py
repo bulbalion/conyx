@@ -34,7 +34,8 @@ import locale
 import sys
 import re
 
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 from conyxDBQuery import conyxDBQuery
 from conyxOps import *
 
@@ -65,19 +66,19 @@ def tuiMenu(refs,strings,last_pos,last_page):
   pages=int(ceil(row_num/max_row))
   position=last_pos 
   page=last_page
-  #for i in range(1+(max_row*(page-1)),max_row+1+(max_row*(page-1))):
-  #for i in range(1,max_row+1):
-  #  if row_num == 0:
-  #    box.addstr(1,1,"There aren't strings", highlightText )
-  #  else:
-  #    #if (i == position):
-  #    if (i+(max_row*(page-1))==position+(max_row*(page-1))):
-  #      box.addstr(i,2,actual_char+" "+cleanHtml(strings[i-1]),highlightText )
-  #    else:
-  #      box.addstr(i-(max_row*(page-1)),2,"  "+cleanHtml(strings[i-1]),normalText)
-  #      #box.addstr(i,2,"  "+cleanHtml(strings[i-1]),normalText)
-  #    if i == row_num:
-  #      break
+  for i in range(1+(max_row*(page-1)),max_row+1+(max_row*(page-1))):
+  for i in range(1,max_row+1):
+    if row_num == 0:
+      box.addstr(1,1,"There aren't strings", highlightText )
+    else:
+      #if (i == position):
+      if (i+(max_row*(page-1))==position+(max_row*(page-1))):
+        box.addstr(i,2,actual_char+" "+cleanHtml(strings[i-1]),highlightText )
+      else:
+        box.addstr(i-(max_row*(page-1)),2,"  "+cleanHtml(strings[i-1]),normalText)
+        #box.addstr(i,2,"  "+cleanHtml(strings[i-1]),normalText)
+      if i == row_num:
+        break
   for i in range(1+(max_row*(page-1)),max_row+1+(max_row*(page-1))):
     if row_num == 0:
       box.addstr(1,1,"Zadna data.",highlightText)
@@ -148,8 +149,6 @@ def tuiMenu(refs,strings,last_pos,last_page):
           box.addstr(i-(max_row*(page-1)),2,"  "+cleanHtml(sutf8(strings[i-1])),normalText)
       if i == row_num:
         break
-  
-  
   
     screen.refresh()
     box.refresh()

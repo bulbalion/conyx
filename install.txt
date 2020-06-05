@@ -1,11 +1,13 @@
-   ____ ___  _   ___   ____  __
-  / ___/ _ \| \ | \ \ / /\ \/ /
- | |  | | | |  \| |\ V /  \  /
- | |__| |_| | |\  | | |   /  \
-  \____\___/|_| \_| |_|  /_/\_\
- 
-       Console Nyx Client
 
+    _____   _______ ____   ____     ____
+   |  __/  |   _   |   / __\   |  __\   |  ___
+   |  | ___|  | |  |  | |  |   | |  |   | |  /
+  <_  | |  |  | |  :   \|  |\   \|  :\   \|  \_
+   |  |_|  :  |_|  |       :__\__   |/        _>
+   :       |       |       |  :  |  |    _/:  |
+    \_____/ \_____/|__|\___|________|___|  |___\
+ 
+        Console Nyx Client
 
 Instalace ve virtulnim python prostredi
 
@@ -18,7 +20,7 @@ export CONYX='<cesta k conyxu>'
 [root]# yum -y install python-virtualenv
 |= mkdir -p ~/pyenv
 cd ~/pyenv
-|= virtualenv -p /usr/bin/python2.7 conyx
+|= virtualenv -p /usr/bin/python3.7 conyx
 |= source ~/pyenv/conyx/bin/activate
 (conyx) |= pip install -r $CONYX/reqs.txt
 

@@ -8,7 +8,7 @@
 #
 # Conyx Database Library
 #
-# version 0.1.0
+# version 0.2.4
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -25,7 +25,8 @@
 # -*- coding: utf-8 -*-
 
 import sys, os, traceback
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 from conyxDBLocation import conyxDBLocation
 import sqlite3
 import datetime

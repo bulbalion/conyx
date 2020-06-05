@@ -36,7 +36,7 @@ def tuiScrollContent(filename, filecontent, encoding="utf-8"):
     stdscr.keypad(1)
     rows, columns = stdscr.getmaxyx()
     stdscr.border()
-    bottom_menu = "CONYX " + filename # u"(n) Next line | (p) Previous line | (n) Next page | (p) Previous page | (q) Quit".encode(encoding).center(columns - 4)
+    bottom_menu = "CONYX " + filename + " | -=[ klavesy: j,k,q ]=-" # u"(n) Next line | (p) Previous line | (n) Next page | (p) Previous page | (q) Quit".encode(encoding).center(columns - 4)
     stdscr.addstr(rows - 1, 2, bottom_menu, curses.A_REVERSE)
     out = stdscr.subwin(rows - 2, columns - 2, 1, 1)
     out_rows, out_columns = out.getmaxyx()
@@ -46,7 +46,7 @@ def tuiScrollContent(filename, filecontent, encoding="utf-8"):
     stdscr.refresh()
     line = 0
     while 1:
-      top_menu = (u"Lines %d to %d of %d of %s" % (line + 1, min(len(lines), line + out_rows), len(lines), filename)).encode(encoding).center(columns - 4) 
+      top_menu = (u"Radky %d az %d z %d ze %s" % (line + 1, min(len(lines), line + out_rows), len(lines), filename)).encode(encoding).center(columns - 4) 
       stdscr.addstr(0, 2, top_menu, curses.A_REVERSE)
       out.addstr(0, 0, "".join(lines[line:line+out_rows]))
       stdscr.refresh()

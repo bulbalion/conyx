@@ -1,27 +1,29 @@
-   ____ ___  _   ___   ____  __
-  / ___/ _ \| \ | \ \ / /\ \/ /
- | |  | | | |  \| |\ V /  \  /
- | |__| |_| | |\  | | |   /  \
-  \____\___/|_| \_| |_|  /_/\_\
- 
-       Console Nyx Client
+
+    _____   _______ ____   ____     ____
+   |  __/  |   _   |   / __\   |  __\   |  ___
+   |  | ___|  | |  |  | |  |   | |  |   | |  /
+  <_  | |  |  | |  :   \|  |\   \|  :\   \|  \_
+   |  |_|  :  |_|  |       :__\__   |/        _>
+   :       |       |       |  :  |  |    _/:  |
+    \_____/ \_____/|__|\___|________|___|  |___\
+  
+        Console Nyx Client
 
 Vitejte v CONYXu na Windows
 
 Prerekvizity:
 
-1) Python 2.7
+1) Python 3.7
 2) pip
 
 Tzn.:
 
 Stahnout z python.org verzi
-2.7 a predpokladam, ze bude
+3.7 a predpokladam, ze bude
 nainstalovana do c:\python
 
 V adresari, kde je rozbalen
 conyx:
-
 
 cmd> pip install -r reqs.txt
 
@@ -34,7 +36,10 @@ cmd> set CONYX=%cd%
 
 Pote zadat:
 
-cmd> python winyx.py
+cmd> python tui.py
+
+Stahnout neoficialni curses balicek
+https://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 Autorizovat dle standardnich
 postupu

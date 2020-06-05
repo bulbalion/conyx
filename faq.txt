@@ -1,10 +1,13 @@
-   ____ ___  _   ___   ____  __
-  / ___/ _ \| \ | \ \ / /\ \/ /
- | |  | | | |  \| |\ V /  \  /
- | |__| |_| | |\  | | |   /  \
-  \____\___/|_| \_| |_|  /_/\_\
 
-       Console Nyx Client
+    _____   _______ ____   ____     ____
+   |  __/  |   _   |   / __\   |  __\   |  ___
+   |  | ___|  | |  |  | |  |   | |  |   | |  /
+  <_  | |  |  | |  :   \|  |\   \|  :\   \|  \_
+   |  |_|  :  |_|  |       :__\__   |/        _>
+   :       |       |       |  :  |  |    _/:  |
+    \_____/ \_____/|__|\___|________|___|  |___\
+ 
+        Console Nyx Client
 
 
 ## Casto kladene otazky
@@ -21,3 +24,6 @@ cd $CONYX
 - ne vsechny distribuce podporuji spravne Curses
 - textove uzivatelske rozhrani je EXPERIMENTALNI
 
+3) Na jake verzi lze provozovat Conyx
+
+- v soucasnosti je podporovan predevsim python 3.7.3

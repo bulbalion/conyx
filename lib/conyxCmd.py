@@ -9,7 +9,7 @@
 #
 # Conyx Command Line
 #
-# version 0.1.9e
+# version 0.2.3
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -25,7 +25,8 @@
 #-*- coding: utf-8 -*-
 
 import sys, os, traceback
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 from nyxOp import *
 import cmd2 as cmd2
 from conyxDBLast import conyxDBLast
@@ -36,7 +37,7 @@ from conyxDBGenDMLVars import conyxDBGenDMLVars
 from conyxDBUpdNickname import conyxDBUpdNickname
 from tuiFile import *
 from tuiMainScreen import *
-import readline
+from tuiBuffer import print_pallete
 
 i_klub_id=1
 i_klub_name=""
@@ -146,6 +147,11 @@ class cli(cmd2.Cmd):
       nyx_reply_message(i_klub_id,p_message,p_msg_id,p_usr_id)
     else:
       print("Prispevek neodeslan.")
+
+  def do_pis_s_prilohou(self,line):
+    if len(line) > 0:
+      words=line.split(' ')
+      nyx_send_message(i_klub_id,words[1:],words[0])
 
   def do_pis(self, line):
     if len(line) > 0:
@@ -313,6 +319,20 @@ class cli(cmd2.Cmd):
       traceback.print_exc(file=sys.stdout)
       print("Nemuzu stahnout postu ze serveru")
 
+  def do_notif(self,line): # HISTORIE
+    try:
+      #print("Notifikace z feedu")
+      nyx_feed_notices()
+      #cols,rows=conyxDBQuery('select id_klub || " " || klub_cache.jmeno line from last, klub_cache where last.forum_id = id_klub order by last.rowid desc limit 10')
+      #if len(rows)>0:
+      #  for r in rows:
+      #    print(r[0])
+    except Exception:
+      traceback.print_exc(file=sys.stdout)
+      print("Nemuzu zobrazit posledni navstivene podle docasne pameti")
+
+  def do_pallete(self,line):
+    print_pallete()
 
   do_sp=do_stahniPostu
   do_hd=do_hledejDopis
@@ -330,10 +350,13 @@ class cli(cmd2.Cmd):
   do_cist=do_ctiKlub
   do_o=do_odpovez
   do_p=do_pis
+  do_psp=do_pis_s_prilohou
   do_h=do_historie
   do_nnp=do_dalsiNeprecteny
   do_nr=do_dalsiReakce
   do_wu=do_hledejVsude
+  do_no=do_notif
+  do_pal=do_pallete
 
   def do_tui(self,line):
     try:

@@ -26,7 +26,13 @@ import os
 resp = "EMPTY"
 
 def conyxDBLocation():
-  resp=(os.environ['CONYX'] + "/db/conyx.db")
+  if ('CONYX') in os.environ:
+    resp=(os.environ['CONYX'] + "/db/conyx.db")
+  else:
+    if (os.path.isfile('conyx.db')):
+      resp="conyx.db"      
+    elif (os.path.isfile('../db/conyx.db')):
+      resp="../db/conyx.db"
   return(resp)
 
 # DEBUG

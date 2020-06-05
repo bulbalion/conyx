@@ -3,13 +3,87 @@
 <font color="lightGreen">
 <pre>
 
-   ____ ___  _   ___   ____  __
-  / ___/ _ \| \ | \ \ / /\ \/ /
- | |  | | | |  \| |\ V /  \  /
- | |__| |_| | |\  | | |   /  \
-  \____\___/|_| \_| |_|  /_/\_\
+   _____   _______ ____   ____     ____
+  |  __/  |   _   |   / __\   |  __\   |  ___
+  |  | ___|  | |  |  | |  |   | |  |   | |  /
+ (_  | |  |  | |  :   \|  |\   \|  :\   \|  \_
+  |  |_|  :  |_|  |       :__\__   |/        _>
+  :       |       |       |  :  |  |    _/:  |
+   \_____/ \_____/|__|\___|________|___|  |___\
 
        Console Nyx Client
+
+v 0.2.4
+* tui - mainScreen - pridano znameni zverokruh 
+* tui - [c]ti - priprava na barvicky v prispevcich
+* tui - [c]ti - nejnovejsi se vypisuji odshora
+* tui - added tests
+* tui - bug - odstraneny pady na termu 50x25
+* tui - bug - opravena velikost okna pri vyhledavani
+* tui - bug - pri ALT+1 na mensich terminalech
+* tui - ytb - opraveno velikost vykreslovani 50x25
+* tui - v prehledu diskuzi roztahnut text o par znaku
+* tui - bug - dopisy - zvetsen vypis o par znaku, opravena chyba z 0.2.3 pro zobrazeni dopisu
+* tui - file - uprava pro 50x25 terminal
+* tui - kdyz se vybere nova diskuze, tak se rovnou zobrazi
+* tui - z vyberu diskuzi se nevraci na hlavni obrazovku, ale zpet do vyberu diskuzi
+* tui - napoveda v poste
+* tui - [p] - z diskuze lze psat prispevek
+* tui - mail - jiz nezalamuje podle inputBoxu
+
+v 0.2.3
+* cmd - barvicky v notifikacich 
+* cmd - [pal] - tiskni paletu
+* tui - konfigurace - barvicky vypnout ci zapnout
+* tui - m - ozna(m)eni
+* tui - pis - alt+1 da napovedu
+* tui - pis - bug v termuxu nefunkcni backspace (asc 127)
+* all - prepnuto na https
+* cmd - [psp] - pripojeni prilohy ve formatu: cmd> psp obr.gif zprava
+* src - fBrowser - curses funkce pro vyber souboru ze zadaneho adresare a masky
+* tui - [f] - zobrazi dialog pro vyber souboru a ten odesle do diskuze 
+* tui - bug - filtrace v seznamu zprav nenastavila kurzor na prvni polozku
+* tui - bug - [i] - informace o klubu upraven na vypis jedne stranky informaci
+* tui - bug - misto os.walk, ktery jde do podadresaru pouzi os.listdir
+* tui - [f] - pridan input box pro komentar a [d] pro zmenu adresare
+* tui - bug - na mobilu nefungoval backspace v hledani v prehledu diskuzi
+* tui - [s] - sledovane diskuze. Po [f] vyhledavani, jinak h,j,k,l vim klavesy
+* tui - bug - [s] padalo pri prilis mnoho posunu do dalsich stranek
+* cfg - novy parametr - cesta k souboru pro odeslani na Nyx
+* tui - [f] - pri odesilani si pamatuje posledni cestu, zapise ji do konfigu
+* tui - [h] - vyhledavani hned pri prvnim pismenku po [f]
+* tui - [h] - pridany klavesy [n] a [u] pro pohyb po strankach v seznamu
+* tui - mainScreen - pomocnik - pridany jmeniny
+* tui - mainScreen - pomocnik - pridáno slunce
+* tui - mainScreen - pomocnik pridán mesic
+* tui - inputBox - pomocnik youtube
+* tui - inputBox - bug - kdyz se vrati z YTB helperu bez vybrani tak padal
+* tui - inputBox - YTB helper posunut do boxu na 0,0 misto 1,0 (y,x)
+* all - odstranena zavislost na systemove promenne CONYX
+* tui - bugfixing - vetsinou problem s prazdnym adresarem, vice napovedy
+* tui - mail - pohyb nejenom pomoci klavesovych sipek
+* tui - v hlavnim menu pro vypis diskuze staci stiknout ENTER
+* tui - [0] - k0nfigurace - pro zapnuti zamku staci stisk klavesy 0
+* tui - autorizace pocka na stisk klavesy 
+
+v 0.2.2
+* tui - vyhledavani v seznamu diskuzi podle zadaneho retezce (3 pismena min)
+* tui - pis - kde neni zaplnena radka, tam odradkuj, jinak retezec spoj
+* tui - 0 - konfigurace
+* tui - rodicovsky zamek
+* tui - psat prispevek s diakritikou
+* tui - rodicovsky zamek
+* tui - moznost prohlizet seznam dopisu
+* tui - moznost cist dopisy
+* tui - prepinat mezi dopisy lze sipkami
+* tui - zrychleni nacitani dopisu
+* tui - odpoved na dopisy
+* tui - [f] - filtrace posty dle prijemce a odesilatele 
+* tui - BUG - pri zobrazeni historie se opakovane nacitala historie 
+* tui - lze zrusit zpravu pomoci ctrl + x
+* tui - uprava inputBoxu tak, aby se daly posilat ASCII obrazky
+* hlp - helpers - pridan Youtube Console Search
+* cmd - [ no ] - notifikace
 
 v 0.2.1
 * tui - BUG - pri zmene klubu z historie na nenavstiveny neprobehla zmena
@@ -21,7 +95,7 @@ v 0.2.0c
 * tui - predelavka novych radek (vetsina je odstranovana, kvuli kompaktnosti)
 * tui - do conyxOps->zobrazDiskuzi pridan prametr onTerm, pouziva se v tui
 * conyx - pridan prikaz za (zahlavi Klubu) -> nyx_disc_header_desc
-* tui - <i> pro informace ze zahlavi klubu 
+* tui - [i] pro informace ze zahlavi klubu 
 * tui - pridana moznost scrollovat v prispevcich o stranku (u,n)
 * conyx  - strankovani v diskuzi 
 * tui - vyhledavani v seznamu diskuzi podle jmena diskuze
@@ -43,7 +117,7 @@ v 0.2.0c
 v 0.1.9
 * core - prepis do Python3 
 * core - zpetna kompatibilita s Python2
-+ tui - pridan prikaz <h> - historie
++ tui - pridan prikaz [h] - historie
 + tui - pohyb v seznamu diskuzi (nove klavesy j, k, h, l)
 + ops - nove nyx_disc_header pro ziskani aktualniho jmena klubu
 

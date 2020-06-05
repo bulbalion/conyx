@@ -1,14 +1,19 @@
 Filtrovat seznam klubu podle klicoveho slova - HOTOVO
-Dodelat pripojeni na SQL*Databazi - HOTOVO
+Dodelat pripojeni na SQL Databazi - HOTOVO
 Historie navstivenych klubu - HOTOVO
 
-0.2.1+ - Vyhledavani ze vsech klubu, nejenom zalozek - HOTOVO
-0.2.1+ - Odpovidat pomoci odkazu - UKOL
-0.2.1+ - vyhledavat v seznamu klubu psanim - UKOL
-0.2.1+ - posta v TUI - UKOL
-0.2.1+ - rodicovsky zamek - UKOL
+0.2.1 - vyhledavani ze vsech klubu, nejenom zalozek - HOTOVO
+0.2.2 - vyhledavat v seznamu klubu psanim - HOTOVO
+0.2.2 - rodicovsky zamek - HOTOVO
+0.2.2 - psat prispevek s diakritikou - HOTOVO
+0.2.3 - poslat soubor pres CONYX - HOTOVO
+0.2.3 - posta v TUI - HOTOVO
+
 0.2.1+ - strankovani pri prohlizeni klubu - UKOL
 0.2.1+ - priradit oblibeny klub na klavesu cislo (2-9) - UKOL
 0.2.1+ - hodnoceni prispevku - UKOL
-0.2.1+ - poslat soubor pres CONYX - UKOL
+0.2.1+ - Odpovidat pomoci odkazu - UKOL
+0.2.4+ - Znameni horoskopu na uvodni obrazovce - UKOL
+0.2.4+ - Moznost volat z prikazove radky a ziskat pocet neprectenych - UKOL
+0.2.4+ - Notifikace jsou zatim jenom print, prepsat do curses - UKOL
 

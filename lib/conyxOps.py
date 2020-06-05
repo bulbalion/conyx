@@ -9,7 +9,7 @@
 #
 # Conyx Operations Library
 #
-# version 0.1.9e
+# version 0.2.3
 #
 # You can do whatever You want with Conyx.
 # But I don't take reponsbility nor even
@@ -22,19 +22,18 @@
 # provided.
 #
 
-
 import sys, os, traceback
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
-from nyxOp import *
-from conyxDBLast import conyxDBLast
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+from nyxOp import nyx_show_disc_msgs, nyx_show_disc_msgs_filter, nyx_show_disc_msgs_from
 from nyxMail import * 
 from conyxDBQuery import conyxDBQuery
 from conyxDBGenDML import conyxDBGenDML
 from conyxDBGenDMLVars import conyxDBGenDMLVars
 from conyxDBUpdNickname import conyxDBUpdNickname
 #from tuiFile import *
-from tuiBuffer import *
-import readline
+from tuiBuffer import tuiScrollContent
+import locale
 
 def cacheVypisPrispevky():
   cols,rows=conyxDBQuery("select id_prispevek, prisp_from ||'|'||prisp_text||'|'||prisp_hodnoceni from prispevek_cache")
@@ -68,19 +67,20 @@ def conyxOpsTuiBuffer(name,buffer):
 def zobrazDiskuzi(klub_id,screen,onTerm=0,id_wu=None,dir="older",filter_user=None,filter_keyword=None):
   #print("Nacitam klub do databaze " + str(i_klub_id))
   try:
-    if filter_user:
-      buf=nyx_show_disc_msgs_filter(str(klub_id),filter_user)
-    elif filter_keyword:
+    if not (filter_user is None):
+      buf=nyx_show_disc_msgs_filter(str(klub_id),filter_user,None)
+    elif not (filter_keyword is None):
       buf=nyx_show_disc_msgs_filter(str(klub_id),None,filter_keyword)
-    elif id_wu:
+    elif not (id_wu is None):
       buf=nyx_show_disc_msgs_from(str(klub_id),id_wu,dir)
     else:
       buf=nyx_show_disc_msgs(str(klub_id))
     #print("posledni prispevek: " + str(int(res[1][0][0])))
     conyxDBGenDML('update klub_cache set unread = "0" where id_klub="'+str(klub_id)+'"')
   except Exception:
-    traceback.print_exc(file=sys.stdout)
+    eraceback.print_exc(file=sys.stdout)
     print("Nepodarilo se ulozit prispevky z aktualni diskuze do databaze")
+    input("PROBLEM")
   #
   #buf=nyx_show_disc_msgs(str(klub_id))
   cols, rows = conyxDBQuery('select prisp_from || "|" || prisp_text || "|" ||  prisp_hodnoceni wu_rating from prispevek_cache')
@@ -106,6 +106,5 @@ def zobrazDiskuzi(klub_id,screen,onTerm=0,id_wu=None,dir="older",filter_user=Non
     screen.getch()
   screen.clear()
   screen.refresh()
- 
 
 #print(getKlubNameFromID(3))

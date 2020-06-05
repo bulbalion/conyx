@@ -25,7 +25,8 @@
 
 import sys, os, traceback
 import sqlite3
-sys.path.insert(0, (os.environ['CONYX']+'./lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'./lib'))
 from conyxDBLocation import conyxDBLocation
 
 con = None

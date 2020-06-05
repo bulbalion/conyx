@@ -1,0 +1,20 @@
+./test1001.sh
+./test1002.sh
+./test1003.sh
+./test1004.sh
+./test1005.sh
+./test1006.sh
+./test1007.sh
+./test1008.sh
+./test1009.sh
+./test1010.sh
+./test1011.sh
+./test1012.sh
+./test1013.sh
+./test1014.sh
+./test1015.sh
+./test1016.sh
+./test1017.sh
+#./test1018.sh # NENI HOTOVO
+./test1019.sh
+./test1020.sh

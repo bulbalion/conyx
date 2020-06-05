@@ -22,7 +22,8 @@
 #
 
 import sys, os, traceback
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 import json
 import re
 import curses

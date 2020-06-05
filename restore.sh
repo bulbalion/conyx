@@ -1,0 +1,1 @@
+cp ../conyx.db ./db

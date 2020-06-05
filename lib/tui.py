@@ -1,7 +1,8 @@
 #-*- coding: utf-8 -*-
 
 import sys, os, traceback
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+if ('CONYX') in os.environ:
+  sys.path.insert(0, (os.environ['CONYX']+'/lib'))
 from nyxOp import *
 from conyxDBLast import conyxDBLast
 from nyxMail import * 
@@ -11,10 +12,9 @@ from conyxDBGenDMLVars import conyxDBGenDMLVars
 from conyxDBUpdNickname import conyxDBUpdNickname
 from tuiFile import *
 from tuiMainScreen import *
-import readline
 
 import sys, os, traceback
-sys.path.insert(0, (os.environ['CONYX']+'/lib'))
+
 
 global i_klub_id
 
@@ -26,6 +26,7 @@ def do_tui():
       traceback.print_exc(file=sys.stdout)
 
 if __name__ == '__main__':
+#def main():
   global i_klub_id
   p_nickname = get_auth_nickname()
   if p_nickname == "":
